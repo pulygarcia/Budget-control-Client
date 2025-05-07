@@ -1,8 +1,8 @@
 'use server'
 
+import { cookies } from 'next/headers'
 import { redirect } from "next/navigation";
 import { LoginSchema } from "../lib/schemas/login-schema"
-import { cookies } from 'next/headers'
 
 type actionStateType = {
     errors: object[];
@@ -71,13 +71,15 @@ export async function login(prevState:actionStateType ,formData:FormData){
     }
 
     const jwt = response.token;
-    const cookieStore = await cookies()
-    cookieStore.set('jwt', jwt, {
+    
+    (await cookies()).set({
         name: 'AUTH_JWT',
+        value: jwt,
         httpOnly: true,
-        maxAge: 60 * 60 * 24 * 30, // 30d duration,
-        path: '/' //available in all routes
-    });
+        maxAge: 60 * 60 * 24 * 30,
+        path: '/',
+    })
+      
 
 
     redirect('/admin')
