@@ -1,11 +1,24 @@
 'use client'
 
+import { login } from "@/app/actions/login-action"
 import Link from "next/link"
+import { useActionState } from "react"
 
 export default function LoginForm() {
+    const initialState = {
+        errors: []
+    }
+
+    const [state, formAction] = useActionState(login, initialState)
+
     return (
         <>
+            {state.errors.some(error => error.field === 'server') && (
+                <p className="bg-red-100 text-red-800 p-3 rounded-lg text-center font-semibold mt-10">{state.errors.find(error => error.field === 'server')?.message}</p>
+            )}
+
             <form
+                action={formAction}
                 className="mt-14 space-y-5"
                 noValidate
             >
@@ -21,6 +34,10 @@ export default function LoginForm() {
                         className="w-full border border-gray-300 p-3 rounded-lg"
                         name="email"
                     />
+
+                    {state.errors.some(error => error.field === 'email') && (
+                        <p className="text-red-600">{state.errors.find(error => error.field === 'email')?.message}</p>
+                    )}
                 </div>
 
                 <div className="flex flex-col gap-2">
@@ -34,6 +51,10 @@ export default function LoginForm() {
                         className="w-full border border-gray-300 p-3 rounded-lg"
                         name="password"
                     />
+
+                    {state.errors.some(error => error.field === 'password') && (
+                        <p className="text-red-600">{state.errors.find(error => error.field === 'password')?.message}</p>
+                    )}
                 </div>
 
                 <input
