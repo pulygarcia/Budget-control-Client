@@ -25,8 +25,8 @@ export default function NewPasswordForm() {
         successMessage: ''
     }
     
-    const sendTokenAction = createNewPassword.bind(null, token)
-    const [state, formAction] = useActionState(sendTokenAction, initialState);
+    const createPasswordWithToken = createNewPassword.bind(null, token)
+    const [state, formAction] = useActionState(createPasswordWithToken, initialState);
 
     useEffect(() => {
         if (state.errors.length > 0) {
