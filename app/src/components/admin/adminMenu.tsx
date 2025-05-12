@@ -1,5 +1,6 @@
 'use client'
 
+import { logout } from '@/app/actions/logout-action'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import Link from 'next/link'
 
@@ -24,7 +25,7 @@ export default function AdminMenu() {
                 <p className="text-gray-400">Create your own targeted content</p>
             </div>
             <div>
-                <button onClick={() => console.log('close session')} className='bg-red-600 p-2 rounded-lg text-white cursor-pointer'>
+                <button onClick={async () => await logout()} className='bg-red-600 p-2 rounded-lg text-white cursor-pointer'>
                     <span className=''>Close session</span>
                 </button>
             </div>
