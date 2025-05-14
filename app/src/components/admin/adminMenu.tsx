@@ -22,7 +22,7 @@ export default function AdminMenu() {
             </div>
             <div>
                 <Link href={'/'/*'/budgets'*/} className='text-white'>My budgets</Link>
-                <p className="text-gray-400">Create your own targeted content</p>
+                <p className="text-gray-400">Check and manage your budgets</p>
             </div>
             <div>
                 <button onClick={async () => await logout()} className='bg-red-600 p-2 rounded-lg text-white cursor-pointer'>
