@@ -23,6 +23,7 @@ export default function AuthLayout({
             <p className="text-xl">
               Create your account, add budgets, and manage your expenses to keep everything under control.
             </p>
+            <p className="text-lg">Made by <a href="https://portfolio-puly-v4.vercel.app/" className="text-lime-400 underline">@pulygarcia</a></p>
           </div>
           {/* Decorative SVG */}
           <svg

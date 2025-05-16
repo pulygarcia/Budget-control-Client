@@ -32,7 +32,7 @@ export default async function AdminLayout({
   
         <footer className='py-5'>
           <p className='text-center'>
-            Made by Puly
+            Made by <a href="https://portfolio-puly-v4.vercel.app/">@pulygarcia</a>
           </p>
         </footer>
       </>

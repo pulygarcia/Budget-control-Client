@@ -5,29 +5,12 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { formatDate, formatCurrency } from "@/app/src/utils";
+import { BudgetAPIResponse } from "@/app/lib/schemas/budget-schema";
 
-interface Budget {
-  id: number;
-  name: string;
-  amount: number;
-  createdAt: string;
-  updatedAt: string;
-  userId: number;
-  expenses: Expense[];
-}
-
-export type Expense = {
-  name: string;
-  amount: number;
-  budgetId: number;
-  budget?: Budget;
-  createdAt: string;
-  updatedAt: string;
-};
 
 export default function BudgetDetailPage() {
   const id = useParams().id;
-  const [budget, setBudget] = useState<Budget | null>(null);
+  const [budget, setBudget] = useState<BudgetAPIResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -112,14 +95,14 @@ export default function BudgetDetailPage() {
           {formatDate(budget.updatedAt)}
         </p>
 
-        {budget.expenses.length > 0 ? (
+        {budget.expenses && budget.expenses.length > 0 ? (
           <div className="mt-6 border-t pt-4">
             <h2 className="text-xl font-bold text-cyan-700 mb-2">Expenses</h2>
             <ul className="space-y-2">
               {budget.expenses.map((expense, index) => (
                 <li
-                key={index}
-                className="bg-gray-50 p-4 rounded-xl shadow-sm border border-gray-200"
+                  key={index}
+                  className="bg-gray-50 p-4 rounded-xl shadow-sm border border-gray-200"
                 >
                   <div className="flex justify-between items-center">
                     <span className="text-gray-700 font-semibold capitalize">
@@ -153,12 +136,12 @@ export default function BudgetDetailPage() {
           Add Expense
         </button>
 
-        <button className="flex items-center gap-2 border border-yellow-400 text-yellow-700 hover:bg-yellow-50 font-medium py-2 px-4 rounded-md transition cursor-pointer">
+        <Link href={`/admin/budgets/${budget.id}/edit`} className="flex items-center gap-2 border border-yellow-400 text-yellow-700 hover:bg-yellow-50 font-medium py-2 px-4 rounded-md transition cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536M9 11l6-6 3 3-6 6H9v-3z" />
           </svg>
           Edit Budget
-        </button>
+        </Link>
 
         <button className="flex items-center gap-2 border border-red-400 text-red-700 hover:bg-red-50 font-medium py-2 px-4 rounded-md transition cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
