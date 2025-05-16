@@ -22,7 +22,7 @@ export async function getBudgets() {
     return res.json();
 }
 
-export async function getBudgetById(id:ParamValue) {
+export async function getBudgetById(id:string) {
     const jwt = (await cookies()).get('AUTH_JWT')?.value;
 
     const res = await fetch(`${process.env.API_BASE_URL}/budgets/${id}`, {
@@ -36,6 +36,24 @@ export async function getBudgetById(id:ParamValue) {
   
     if (!res.ok) {
       throw new Error('Failed to fetch budget');
+    }
+  
+    return res.json();
+}
+
+export async function deleteBudget(id:string) {
+    const jwt = (await cookies()).get('AUTH_JWT')?.value;
+
+    const res = await fetch(`${process.env.API_BASE_URL}/budgets/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+      cache: 'no-store', // avoid caching in server-side fetch
+    });
+  
+    if (!res.ok) {
+      throw new Error('Failed to delete budget');
     }
   
     return res.json();

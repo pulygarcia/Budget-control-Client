@@ -1,12 +1,18 @@
 import { getBudgetById } from "@/app/lib/budgets/budgetsFetching";
-import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import EditBudgetForm from "@/app/src/components/budgets/EditBudgetForm";
+import { Metadata } from "next";
 
-export const metadata: Metadata = {
-    title: "Budgets control - Edit Budget",
-    description: "Made by Puly",
-};
+export async function generateMetadata({params} : {params: {id:string}}) : Promise<Metadata>{
+    //show name of budget to update
+    const {id} = await params //await has no effect but avoids an Error
+    const budget = await getBudgetById(id);
+
+    return{
+        title: `Budgets control - Edit ${budget.name}`,
+        description: `Modify content of Budget: ${budget.name}`
+    }
+} 
 
 export default async function EditBudget({params} : {params: {id:string}}) {
     /*const {id} = params;       <-- This way to get the params print an Error*/

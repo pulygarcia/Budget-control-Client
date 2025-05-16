@@ -3,8 +3,11 @@
 import { addNewBudget } from "@/app/actions/new-budget-action";
 import { useActionState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function NewBudgetForm() {
+  const router = useRouter()
+
     const initialState = {
         errors: [],
         successMessage: ''
@@ -19,6 +22,7 @@ export default function NewBudgetForm() {
 
         if(state.successMessage){
             toast.success(state.successMessage)
+            router.push('/admin')
         }
     },[state])
 

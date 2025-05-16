@@ -3,10 +3,12 @@
 import { editBudget } from "@/app/actions/edit-budget-action";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { BudgetAPIResponse } from "@/app/lib/schemas/budget-schema";
 
 export default function EditBudgetForm({ budget }: { budget: BudgetAPIResponse }) {
+    const router = useRouter();
+
     const [name, setName] = useState(budget.name);
     const [amount, setAmount] = useState(budget.amount);  
 
@@ -29,7 +31,7 @@ export default function EditBudgetForm({ budget }: { budget: BudgetAPIResponse }
         }
 
         if(state.finished){
-            redirect(`/admin/budgets/${budget.id}`)
+            router.push(`/admin/budgets/${budget.id}`);
         }
     },[state])
 

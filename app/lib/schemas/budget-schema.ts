@@ -12,7 +12,7 @@ export const budgetSchema = z.object({
     .min(1, { message: 'Amount must be at least 1' })
 });
 
-const expenseSchema = z.object({
+export const expenseSchema = z.object({
   name: z.string(),
   amount: z.string(),
   budgetId: z.number(),
@@ -32,6 +32,7 @@ export const budgetAPIResponseSchema = z.object({
 
 
 export type BudgetAPIResponse = z.infer<typeof budgetAPIResponseSchema>;
+export type ExpenseAPIResponse = z.infer<typeof expenseSchema>;
 
 
 
