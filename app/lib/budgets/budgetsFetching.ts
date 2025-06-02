@@ -2,6 +2,7 @@
 
 import { ParamValue } from "next/dist/server/request/params";
 import { cookies } from "next/headers";
+import { notFound } from "next/navigation";
 
 export async function getBudgets() {
     const jwt = (await cookies()).get('AUTH_JWT')?.value;
@@ -35,7 +36,7 @@ export async function getBudgetById(id:string) {
     });
   
     if (!res.ok) {
-      throw new Error('Failed to fetch budget');
+      notFound()
     }
   
     return res.json();
