@@ -17,11 +17,11 @@ export default function AdminMenu() {
         >
           <div className="p-3 space-y-6">
             <div>
-                <Link href={'/'/*'/profile'*/} className='text-white'>Profile</Link>
+                <Link href={'/profile/settings'} className='text-white'>Profile</Link>
                 <p className="text-gray-400">Check your profile data</p>
             </div>
             <div>
-                <Link href={'/'/*'/budgets'*/} className='text-white'>My budgets</Link>
+                <Link href={'/admin'} className='text-white'>My budgets</Link>
                 <p className="text-gray-400">Check and manage your budgets</p>
             </div>
             <div>

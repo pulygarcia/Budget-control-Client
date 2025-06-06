@@ -18,6 +18,9 @@ export default function Budget({ budget }: BudgetProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [expenses, setExpenses] = useState(budget.expenses || []);
+  const [spent, setSpent] = useState(budget.expenses?.reduce((total, expense) => total + +expense.amount, 0)) || 0;
+  const [availableAmount, setAvailableAmount] = useState((+budget?.amount - spent!));
+  const [spentPercentage, setSpentPercentage] = useState(+(spent! / +budget.amount).toFixed(2)*100);
   const router = useRouter();
 
   const handleDelete = async () => {
@@ -45,10 +48,26 @@ export default function Budget({ budget }: BudgetProps) {
         </div>
 
         <div className="space-y-4 text-gray-700 text-lg">
-          <p>
-            <span className="font-semibold text-gray-500">Amount:</span>{" "}
-            <span className="text-lime-600 font-bold">{formatCurrency(+budget.amount)}</span>
+          <p className="bg-blue-50 border border-blue-200 p-3 rounded-md text-blue-800 flex justify-between items-center">
+            <span className="font-semibold">Amount:</span>
+            <span className="text-emerald-600 font-bold">{formatCurrency(+budget.amount)}</span>
           </p>
+
+          <p className="bg-green-50 border border-green-200 p-3 rounded-md text-green-800 flex justify-between items-center">
+            <span className="font-semibold">Available:</span>
+            <span className="text-green-700 font-bold">{formatCurrency(availableAmount)}</span>
+          </p>
+
+          <p className="bg-red-50 border border-red-200 p-3 rounded-md text-red-800 flex justify-between items-center">
+            <span className="font-semibold">Spent:</span>
+            <span className="text-red-700 font-bold">{formatCurrency(spent!)}</span>
+          </p>
+
+          <p className="bg-yellow-50 border border-yellow-200 p-3 rounded-md text-yellow-800 flex justify-between items-center">
+            <span className="font-semibold">Spent percentage:</span>
+            <span className="text-yellow-700 font-bold">{spentPercentage}%</span>
+          </p>
+
           <p>
             <span className="font-semibold text-gray-500">Created at:</span>{" "}
             {formatDate(budget.createdAt)}
